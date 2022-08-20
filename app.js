@@ -1,7 +1,8 @@
 const express = require('express');
-const tasks = require('./routes/tasks');
+const TaskRoutes = require('./routes/tasks');
 const ConnectDatabase = require('./db/connect');
 require('dotenv').config();
+const NotFound = require('./middlewares/not-found');
 
 
 const app = express();
@@ -9,7 +10,8 @@ const app = express();
 app.use(express.static('./public'));
 app.use(express.json());
 
-app.use('/api/v1/tasks', tasks);
+app.use('/api/v1/tasks', TaskRoutes);
+app.use(NotFound);
 
 
 const port = process.env.LISTEN_PORT;
