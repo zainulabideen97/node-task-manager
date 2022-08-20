@@ -3,7 +3,16 @@ const Task = require('../models/task');
 async function GetAllTasks(req, res) {
     try {
         const tasks = await Task.find({});
-        res.status(200).json({ tasks });
+
+        const response = tasks.map((task) => {
+            return {
+                _id: task._id,
+                title: task.Title,
+                completed: task.Completed
+            };
+        });
+
+        res.status(200).json({ tasks: response });
     } catch (error) {
         res.status(500).json({ msg: error });
     }
@@ -19,7 +28,13 @@ async function GetTask(req, res) {
             return;
         }
 
-        res.status(200).json({ task });
+        const response = {
+            _id: task._id,
+            title: task.Title,
+            completed: task.Completed
+        };
+
+        res.status(200).json({ task: response });
 
     } catch (error) {
         res.status(500).json({ msg: error });
@@ -35,7 +50,13 @@ async function CreateTask(req, res) {
             Completed: completed
         });
 
-        res.status(201).json({ task });
+        const response = {
+            _id: task._id,
+            title: task.Title,
+            completed: task.Completed
+        };
+
+        res.status(200).json({ task: response });
 
     } catch (error) {
         res.status(500).json({ msg: error });
@@ -59,7 +80,13 @@ async function UpdateTask(req, res) {
             return;
         }
 
-        res.status(200).json({ task });
+        const response = {
+            _id: task._id,
+            title: task.Title,
+            completed: task.Completed
+        };
+
+        res.status(200).json({ task: response });
 
     } catch (error) {
         res.status(500).json({ msg: error });
@@ -77,7 +104,13 @@ async function DeleteTask(req, res) {
             return;
         }
 
-        res.status(200).json({ task });
+        const response = {
+            _id: task._id,
+            title: task.Title,
+            completed: task.Completed
+        };
+
+        res.status(200).json({ task: response });
 
     } catch (error) {
         res.status(500).json({ msg: error });
